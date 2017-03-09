@@ -8,14 +8,14 @@ public class CameraController : MonoBehaviour {
     private Vector3 offset;
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+    {
         offset = transform.position - ball.transform.position;
 	}
 	
 	// Same as update, but after every other object
-	void LateUpdate () {
+	void LateUpdate()
+    {
         transform.position = ball.transform.position + offset;
 	}
-
-
 }
