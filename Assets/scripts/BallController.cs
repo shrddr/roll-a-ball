@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public float speed;
-    private Rigidbody rb;
+    public float Speed;
+    private Rigidbody _rb;
 
     // Use this for initialization
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -26,6 +26,15 @@ public class BallController : MonoBehaviour
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        rb.AddForce(movement * speed);
+        _rb.AddForce(movement * Speed);
+    }
+
+    // When touching another object
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pickup"))
+        {
+            other.gameObject.SetActive(false);
+        }
     }
 }
