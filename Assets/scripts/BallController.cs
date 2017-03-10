@@ -1,14 +1,22 @@
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallController : MonoBehaviour
 {
     public float Speed;
+    public Text ScoreText;
+    public Text WinText;
     private Rigidbody _rb;
+    private int _score;
 
     // Use this for initialization
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _score = 0;
+        UpdateText();
     }
 
     // Update is called once per frame
@@ -33,6 +41,14 @@ public class BallController : MonoBehaviour
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
+            _score = _score + 1;
+            UpdateText();
         }
+    }
+
+    void UpdateText()
+    {
+        ScoreText.text = "Score: " + _score.ToString();
+        WinText.text = (_score < 10) ? "" : "You Win!";
     }
 }
