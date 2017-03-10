@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +36,13 @@ public class BallController : MonoBehaviour
     }
 
     // When touching another object
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+            WinText.text = "Тобi пiзда!";
+    }
+
+    // When touching another object
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Pickup"))
@@ -43,6 +50,8 @@ public class BallController : MonoBehaviour
             other.gameObject.SetActive(false);
             _score = _score + 1;
             UpdateText();
+
+            Instantiate(Resources.Load("Enemy"), GameObject.FindWithTag("Respawn").transform.position, Quaternion.identity);
         }
     }
 
