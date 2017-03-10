@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController : MonoBehaviour {
-
+public class BallController : MonoBehaviour
+{
     public float speed;
     private Rigidbody rb;
-    
-	// Use this for initialization
-	void Start()
+
+    // Use this for initialization
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
-	
-	// Update is called once per frame
-	void Update()
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+    }
 
     // Same as Update but for physics
     void FixedUpdate()
