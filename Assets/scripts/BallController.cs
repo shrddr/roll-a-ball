@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BallController : MonoBehaviour
 {
+    [UsedImplicitly]
     public float Speed;
+    [UsedImplicitly]
     public Text ScoreText;
+    [UsedImplicitly]
     public Text WinText;
     private Rigidbody _rb;
     private int _score;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _score = 0;
@@ -20,12 +23,12 @@ public class BallController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
     }
 
     // Same as Update but for physics
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -36,28 +39,26 @@ public class BallController : MonoBehaviour
     }
 
     // When touching another object
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
             WinText.text = "Тобi пiзда!";
     }
 
     // When touching another object
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Pickup"))
         {
             other.gameObject.SetActive(false);
             _score = _score + 1;
             UpdateText();
-
-            Instantiate(Resources.Load("Enemy"), GameObject.FindWithTag("Respawn").transform.position, Quaternion.identity);
         }
     }
 
-    void UpdateText()
+    private void UpdateText()
     {
-        ScoreText.text = "Score: " + _score.ToString();
+        ScoreText.text = "Score: " + _score;
         WinText.text = (_score < 10) ? "" : "You Win!";
     }
 }

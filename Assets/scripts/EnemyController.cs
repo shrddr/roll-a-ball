@@ -3,13 +3,14 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private const float Speed = 5;
+    private const float TimeToChangeDirection = 3;
     private Rigidbody _rigidbody;
-    private float _time;
+    private float _timeFromLastDirectionChange;
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
-    void Start ()
+    private void Start ()
     {
 		_rigidbody = GetComponent<Rigidbody>();
         RandomMovement();
@@ -18,22 +19,22 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// Update is called once per frame
     /// </summary>
-    void Update ()
+    private void Update ()
     {
-        _time += Time.deltaTime;
-        if(_time > 3)
+        _timeFromLastDirectionChange += Time.deltaTime;
+        if(_timeFromLastDirectionChange > TimeToChangeDirection)
             RandomMovement();
     }
 
 
     // Same as Update but for physics
-    void FixedUpdate()
+    private void FixedUpdate()
     {
 
     }
 
     // When touching another object
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         RandomMovement();
 
@@ -45,6 +46,6 @@ public class EnemyController : MonoBehaviour
     {
         var randomVector = new Vector3(Random.value*2 - 1, 0, Random.value*2 - 1);
         _rigidbody.velocity = randomVector*Speed;
-        _time = 0;
+        _timeFromLastDirectionChange = 0;
     }
 }
